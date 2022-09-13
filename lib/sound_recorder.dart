@@ -1,16 +1,16 @@
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-final pathToSaveAudio = 'audio_example.aac';
-
 class SoundRecorder {
   FlutterSoundRecorder? _audioRecorder;
   bool isInited = false;
+  String pathToSaveAudio = '';
 
   bool get isRecording =>
       _audioRecorder != null ? _audioRecorder!.isRecording : false;
 
-  Future init() async {
+  Future init(String path) async {
+    pathToSaveAudio = path;
     _audioRecorder = FlutterSoundRecorder();
 
     final status = await Permission.microphone.request();
