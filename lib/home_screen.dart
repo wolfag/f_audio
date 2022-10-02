@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:f_audio/sound_player.dart';
 import 'package:f_audio/sound_recorder.dart';
 import 'package:f_audio/timer_widget.dart';
+import 'package:f_audio/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -80,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onPrimary: onPrimary,
       ),
       onPressed: () async {
-        await recorder.toggleRecording();
-
+        String? path = await recorder.toggleRecording();
+        print(path);
         final isRecording = recorder.isRecording;
 
         setState(() {});
@@ -90,6 +93,12 @@ class _HomeScreenState extends State<HomeScreen> {
           timerController.startTimer();
         } else {
           timerController.stopTimer();
+          if (path != null) {
+            // Utils.moveFile(File(path), des)
+            // print(path);
+            // Utils.saveToAppFolder(path, "tai");
+            Utils.saveText("hello");
+          }
         }
       },
       icon: Icon(icon),

@@ -33,16 +33,16 @@ class SoundRecorder {
     await _audioRecorder!.startRecorder(toFile: pathToSaveAudio);
   }
 
-  Future _stop() async {
-    if (!isInited) return;
-    await _audioRecorder!.stopRecorder();
+  Future<String?> _stop() async {
+    if (!isInited) return null;
+    return await _audioRecorder!.stopRecorder();
   }
 
-  Future toggleRecording() async {
+  Future<String?> toggleRecording() async {
     if (_audioRecorder!.isStopped) {
       await _record();
     } else {
-      await _stop();
+      return await _stop();
     }
   }
 }
